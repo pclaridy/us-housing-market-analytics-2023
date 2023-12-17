@@ -4,7 +4,7 @@ This initiative embarks on a detailed exploration of the dynamic landscape of th
 
 ## Description
 
-The core of our analysis is the 2023 Zillow House Listings dataset. This extensive collection of data provides an in-depth view of a wide array of homes across the U.S., offering a unique lens through which to analyze and understand the real estate market's various dimensions.
+The core of this analysis is the 2023 Zillow House Listings dataset. This extensive collection of data provides an in-depth view of a wide array of homes across the U.S., offering a unique lens through which to analyze and understand the real estate market's various dimensions.
 
 ## Table of Contents
 
