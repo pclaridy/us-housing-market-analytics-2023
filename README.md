@@ -6,6 +6,16 @@ This initiative embarks on a detailed exploration of the dynamic landscape of th
 
 The core of this analysis is the 2023 Zillow House Listings dataset. This extensive collection of data provides an in-depth view of a wide array of homes across the U.S., offering a unique lens through which to analyze and understand the real estate market's various dimensions.
 
+## Data Source
+
+xxxxxxxx
+
+The dataset includes a wide range of information about residential properties across the United States, provided by Zillow, a leading real estate and rental marketplace. It offers insights into property characteristics, market estimates, and pricing across various states and localities. 
+
+This rich dataset serves as the foundation for this analysis, enabling me to delve into the intricacies of the U.S. real estate market.
+
+xxxxxxxx
+
 ## Table of Contents
 
 - [Installation](#installation)
