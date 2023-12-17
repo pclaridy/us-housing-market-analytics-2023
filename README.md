@@ -8,13 +8,7 @@ The core of this analysis is the 2023 Zillow House Listings dataset. This extens
 
 ## Data Source
 
-xxxxxxxx
-
-The dataset includes a wide range of information about residential properties across the United States, provided by Zillow, a leading real estate and rental marketplace. It offers insights into property characteristics, market estimates, and pricing across various states and localities. 
-
-This rich dataset serves as the foundation for this analysis, enabling me to delve into the intricacies of the U.S. real estate market.
-
-xxxxxxxx
+This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023), which encompasses a wealth of information about residential properties across the United States for the year 2023. The original compilation of this data is credited to Zillow, a prominent player in the real estate and rental marketplace. The dataset is rich with property-specific details, including physical attributes, Zillow's Zestimate® of property value, Rent Zestimate®, and the actual listing price. This extensive dataset provides a granular view of the housing market, enabling a comprehensive analysis of real estate trends, valuations, and rental market dynamics across various regions in the U.S.
 
 ## Table of Contents
 
