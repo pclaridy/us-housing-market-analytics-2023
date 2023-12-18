@@ -31,49 +31,28 @@ This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/dat
 git clone https://github.com/pclaridy/USRealEstateTrends.git
 cd USRealEstateTrends
 ```
-## Data Preprocessing
+### Data Preprocessing
 
-The preprocessing steps implemented in this project are detailed below:
+For this project, a meticulous data preprocessing approach was adopted to ensure high-quality input for the predictive models. Each step was carefully executed to enhance data integrity and relevance:
 
-#### Initial Data Loading and Inspection
-- Loaded the dataset from a CSV file and displayed its basic information.
+- **Initial Inspection and Cleaning**:
+  - **Data Loading**: The dataset was loaded from a CSV file for initial exploration.
+  - **ZIP Code Transformation**: ZIP codes were converted to strings to preserve their format.
+  - **Missing and Zero Value Analysis**: Investigated and quantified the extent of missing and zero values.
+  - **Handling Missing 'Price' Values**: Rows with missing or zero 'Price' values were removed.
 
-#### ZIP Code Transformation
-- Converted ZIP codes to strings and handled potential decimal points to maintain ZIP code integrity.
+- **Data Imputation and Transformation**:
+  - **Categorical Columns**: Missing values in 'State', 'City', and 'Street' were imputed with 'Unknown'.
+  - **Advanced Imputation**: Employed RandomForestRegressor for missing values in 'MarketEstimate' and 'RentEstimate'.
+  - **Frequency Encoding**: Applied to 'City' and 'Street' columns to manage categorical complexity.
 
-#### Missing and Zero Value Analysis
-- Calculated the percentage of zeros and null values in each column to assess the extent of missing data and zeros.
+- **Data Analysis and Finalization**:
+  - **Correlation Analysis**: Explored the relationships between 'MarketEstimate', 'RentEstimate', and 'Price'.
+  - **Correlation Matrix Visualization**: Heatmap visualization was used to understand correlations among numerical variables.
+  - **Final Missing Value Check**: Ensured all missing values were addressed.
+  - **Exporting Cleaned Data**: The preprocessed dataset was saved as a Pickle file to maintain structure and types.
 
-#### Handling Missing and Zero 'Price' Values
-- Dropped rows where the 'Price' value was either missing or zero, based on their low percentages (1.59% missing, 0.20% zeros).
-
-#### Categorical Columns Imputation
-- For 'State', 'City', and 'Street' columns, filled missing values with 'Unknown'.
-
-#### Correlation Analysis
-- Analyzed and displayed correlations between 'MarketEstimate', 'RentEstimate', and 'Price'.
-
-#### Frequency Encoding
-- Applied frequency encoding to the 'City' and 'Street' columns.
-
-#### Correlation Matrix Visualization
-- Visualized the correlation matrix for numerical variables using a heatmap.
-
-#### Preparation for Advanced Imputation
-- Created a copy of the DataFrame for the imputation process.
-
-#### Imputation of Missing and Zero Values
-- Replaced null and zero values in 'Bedroom' and 'Bathroom'.
-
-#### Advanced Imputation Using RandomForestRegressor
-- Imputed missing values in 'MarketEstimate' and 'RentEstimate'.
-
-#### Final Missing Value Check
-- Ensured all missing values were appropriately addressed.
-
-#### Exporting the Cleaned Dataset
-- To preserve the integrity of the cleaned data, especially the data types and structure, the cleaned dataset was exported as a Pickle file.
-
+Each preprocessing step was integral in transforming the raw dataset into a refined format, ready for effective modeling and analysis.
 
 ### Modeling
 
