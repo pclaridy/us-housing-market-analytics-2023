@@ -12,8 +12,13 @@ This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/dat
 
 ## Table of Contents
 
+- [Description](#description)
+- [Data Source](#data-source)
 - [Installation](#installation)
 - [Data Preprocessing](#data-preprocessing)
+- [Modeling](#modeling)
+- [Model Evaluation and Validation](#model-evaluation-and-validation)
+- [Hyperparameter Tuning](#hyperparameter-tuning)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -30,41 +35,88 @@ cd USRealEstateTrends
 
 The preprocessing steps implemented in this project are detailed below:
 
-### Initial Data Loading and Inspection
+#### Initial Data Loading and Inspection
 - Loaded the dataset from a CSV file and displayed its basic information.
 
-### ZIP Code Transformation
+#### ZIP Code Transformation
 - Converted ZIP codes to strings and handled potential decimal points to maintain ZIP code integrity.
 
-### Missing and Zero Value Analysis
+#### Missing and Zero Value Analysis
 - Calculated the percentage of zeros and null values in each column to assess the extent of missing data and zeros.
 
-### Handling Missing and Zero 'Price' Values
+#### Handling Missing and Zero 'Price' Values
 - Dropped rows where the 'Price' value was either missing or zero, based on their low percentages (1.59% missing, 0.20% zeros).
 
-### Categorical Columns Imputation
+#### Categorical Columns Imputation
 - For 'State', 'City', and 'Street' columns, filled missing values with 'Unknown'.
 
-### Correlation Analysis
+#### Correlation Analysis
 - Analyzed and displayed correlations between 'MarketEstimate', 'RentEstimate', and 'Price'.
 
-### Frequency Encoding
+#### Frequency Encoding
 - Applied frequency encoding to the 'City' and 'Street' columns.
 
-### Correlation Matrix Visualization
+#### Correlation Matrix Visualization
 - Visualized the correlation matrix for numerical variables using a heatmap.
 
-### Preparation for Advanced Imputation
+#### Preparation for Advanced Imputation
 - Created a copy of the DataFrame for the imputation process.
 
-### Imputation of Missing and Zero Values
+#### Imputation of Missing and Zero Values
 - Replaced null and zero values in 'Bedroom' and 'Bathroom'.
 
-### Advanced Imputation Using RandomForestRegressor
+#### Advanced Imputation Using RandomForestRegressor
 - Imputed missing values in 'MarketEstimate' and 'RentEstimate'.
 
-### Final Missing Value Check
+#### Final Missing Value Check
 - Ensured all missing values were appropriately addressed.
 
-### Exporting the Cleaned Dataset
+#### Exporting the Cleaned Dataset
 - To preserve the integrity of the cleaned data, especially the data types and structure, the cleaned dataset was exported as a Pickle file.
+
+
+### Modeling
+
+In this real estate price prediction project, I employed a diverse array of machine learning models to understand and forecast property prices. The selection of models was based on their ability to handle regression tasks effectively. Here's an overview:
+
+- **Linear Models**:
+  - **LinearRegression**: A baseline model for its simplicity and interpretability.
+  - **Lasso**: Useful for its ability to perform feature selection by shrinking coefficients of less important features to zero.
+  - **Ridge**: Tackles multicollinearity (high correlation among features) by imposing a penalty on the size of coefficients.
+  - **ElasticNet**: Combines features of both Lasso and Ridge, making it robust against various data peculiarities.
+
+- **Tree-Based Models**:
+  - **DecisionTreeRegressor**: Offers a deep level of insight with its hierarchical structure of decision nodes and leaves.
+  - **RandomForestRegressor**: An ensemble of decision trees, it improves prediction accuracy and controls over-fitting.
+  - **GradientBoostingRegressor**: Boosts weak learners sequentially to improve model performance.
+  - **XGBRegressor**: An efficient implementation of gradient boosting, known for its speed and performance.
+
+- **Other Models**:
+  - **KNeighborsRegressor**: A non-parametric method that predicts values based on the similarity (or ‘nearness’) to known cases.
+  - **SVR (Support Vector Regression)**: Adapts the margins of decision boundary to get more robust predictions.
+  - **MLPRegressor (Multi-layer Perceptron Regressor)**: A neural network model capable of capturing complex relationships in data.
+
+Each model was chosen for its unique strengths and ability to provide different perspectives on the dataset. This diverse set allows for a comprehensive exploration of the data, ensuring robust and reliable predictions.
+
+### Model Evaluation and Validation
+
+Model evaluation and validation were integral to ensuring the accuracy and generalizability of the predictions. The following strategies were employed:
+
+- **K-Fold Cross-Validation**: This method splits the dataset into 'k' consecutive folds while ensuring every observation gets to be in a test set exactly once. It provides a robust way to assess model performance. In this project, a 5-fold cross-validation was used, balancing computational efficiency with robustness.
+
+- **RMSE (Root Mean Squared Error)**: Used as a primary metric to evaluate model performance. It measures the average magnitude of the errors between predicted and actual values, giving more weight to large errors.
+
+- **R² Score**: Employed as a supplementary metric, it represents the proportion of variance in the dependent variable that's predictable from the independent variables. It gives an idea of the goodness of fit of a model.
+
+### Hyperparameter Tuning
+
+Hyperparameter tuning was conducted to optimize each model's performance. This process involved:
+
+- **RandomizedSearchCV**: This method was used for its efficiency in searching through a large hyperparameter space. It randomly selects a subset of the parameter combinations, allowing for a broad yet computationally feasible search.
+
+- **Parameter Grids**: Specific for each model, they included parameters like `n_estimators`, `max_depth`, and `learning_rate` for tree-based models, `C` and `kernel` for SVR, and `hidden_layer_sizes` and `activation` for MLPRegressor. The choice of parameters was based on their potential impact on model performance.
+
+- **Impact on Performance**: Hyperparameter tuning allowed for the refinement of each model, often resulting in improved RMSE scores. It helped in identifying the best-performing model configurations, which were crucial in making accurate predictions.
+
+This meticulous approach to modeling, evaluation, and hyperparameter tuning ensured the robustness and reliability of the predictive models, thus enabling accurate real estate price predictions.
+
