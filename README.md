@@ -36,21 +36,26 @@ cd USRealEstateTrends
 For this project, a meticulous data preprocessing approach was adopted to ensure high-quality input for the predictive models. Each step was carefully executed to enhance data integrity and relevance:
 
 - **Initial Inspection and Cleaning**:
-  - **Data Loading**: The dataset was loaded from a CSV file for initial exploration.
-  - **ZIP Code Transformation**: ZIP codes were converted to strings to preserve their format.
+  - **Data Loading**: Loaded the dataset from a CSV file for initial exploration.
+  - **ZIP Code Transformation**: Converted ZIP codes to strings to maintain the format.
   - **Missing and Zero Value Analysis**: Investigated and quantified the extent of missing and zero values.
-  - **Handling Missing 'Price' Values**: Rows with missing or zero 'Price' values were removed.
+  - **Handling Missing 'Price' Values**: Removed rows with missing or zero 'Price' values.
 
 - **Data Imputation and Transformation**:
-  - **Categorical Columns**: Missing values in 'State', 'City', and 'Street' were imputed with 'Unknown'.
-  - **Advanced Imputation**: Employed RandomForestRegressor for missing values in 'MarketEstimate' and 'RentEstimate'.
-  - **Frequency Encoding**: Applied to 'City' and 'Street' columns to manage categorical complexity.
+  - **Categorical Columns**: Imputed missing values in 'State', 'City', and 'Street' with 'Unknown'.
+  - **KNN Imputation for 'Area'**: Replaced zeros with NaNs and employed KNN imputation to estimate missing 'Area' values based on neighboring data points.
+  - **Handling Outliers**: Applied Interquartile Range (IQR) method to identify and handle outliers in numerical columns.
+  - **Frequency Encoding**: Applied to 'City' and 'Street' columns for managing categorical complexity.
+
+- **Advanced Data Imputation**:
+  - **Preparation for RandomForestRegressor**: Ensured no NaN values in predictor columns ('Price', 'Bedroom', 'Bathroom', 'Area') before advanced imputation.
+  - **RandomForestRegressor for Market and Rent Estimates**: Employed RandomForestRegressor for imputing missing values in 'MarketEstimate' and 'RentEstimate', considering multiple feature relationships.
 
 - **Data Analysis and Finalization**:
-  - **Correlation Analysis**: Explored the relationships between 'MarketEstimate', 'RentEstimate', and 'Price'.
-  - **Correlation Matrix Visualization**: Heatmap visualization was used to understand correlations among numerical variables.
-  - **Final Missing Value Check**: Ensured all missing values were addressed.
-  - **Exporting Cleaned Data**: The preprocessed dataset was saved as a Pickle file to maintain structure and types.
+  - **Correlation Analysis**: Explored relationships between 'MarketEstimate', 'RentEstimate', 'Price', and other variables.
+  - **Correlation Matrix Visualization**: Used heatmap visualization to understand correlations among numerical variables.
+  - **Final Missing Value Check**: Ensured all missing values were appropriately addressed.
+  - **Exporting Cleaned Data**: Saved the preprocessed dataset as a Pickle file to preserve data structure and types.
 
 Each preprocessing step was integral in transforming the raw dataset into a refined format, ready for effective modeling and analysis.
 
