@@ -1,8 +1,8 @@
 # Unveiling American Real Estate: A Comprehensive Analysis of Residential Listings
 
-## Executive Summary
+This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
 
-"Unveiling American Real Estate: A Comprehensive Analysis of Residential Listings" is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
+### Description
 
 Key highlights of the project include:
 
@@ -15,11 +15,11 @@ Key highlights of the project include:
 
 This project stands as a testament to the application of sophisticated data science techniques in real estate analytics, offering valuable insights for investors, policymakers, and market analysts.
 
-## Data Source
+### Data Source
 
 This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023), which encompasses a wealth of information about residential properties across the United States for the year 2023. The original compilation of this data is credited to Zillow, a prominent player in the real estate and rental marketplace. The dataset is rich with property-specific details, including physical attributes, Zillow's Zestimate® of property value, Rent Zestimate®, and the actual listing price. This extensive dataset provides a granular view of the housing market, enabling a comprehensive analysis of real estate trends, valuations, and rental market dynamics across various regions in the U.S.
 
-## Table of Contents
+### Table of Contents
 
 - [Description](#description)
 - [Data Source](#data-source)
