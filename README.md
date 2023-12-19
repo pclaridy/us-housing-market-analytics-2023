@@ -79,6 +79,7 @@ In this real estate price prediction project, I employed a diverse array of mach
   - **KNeighborsRegressor**: A non-parametric method that predicts values based on the similarity (or ‘nearness’) to known cases.
   - **SVR (Support Vector Regression)**: Adapts the margins of decision boundary to get more robust predictions.
   - **MLPRegressor (Multi-layer Perceptron Regressor)**: A neural network model capable of capturing complex relationships in data.
+  - **StackingRegressor**: An ensemble learning technique that combines multiple regression models via a meta-regressor.
 
 Each model was chosen for its unique strengths and ability to provide different perspectives on the dataset. This diverse set allows for a comprehensive exploration of the data, ensuring robust and reliable predictions.
 
@@ -92,15 +93,26 @@ Model evaluation and validation were integral to ensuring the accuracy and gener
 
 - **R² Score**: Employed as a supplementary metric, it represents the proportion of variance in the dependent variable that's predictable from the independent variables. It gives an idea of the goodness of fit of a model.
 
-### Hyperparameter Tuning
+- **MAE (Mean Absolute Error)** and **Explained Variance Score**: Additional metrics used for a more comprehensive evaluation of model performance.
 
-Hyperparameter tuning was conducted to optimize each model's performance. This process involved:
+### Hyperparameter Tuning and Feature Engineering
 
-- **RandomizedSearchCV**: This method was used for its efficiency in searching through a large hyperparameter space. It randomly selects a subset of the parameter combinations, allowing for a broad yet computationally feasible search.
+Hyperparameter tuning and feature engineering were conducted to optimize each model's performance and enhance the predictive power of the features:
 
-- **Parameter Grids**: Specific for each model, they included parameters like `n_estimators`, `max_depth`, and `learning_rate` for tree-based models, `C` and `kernel` for SVR, and `hidden_layer_sizes` and `activation` for MLPRegressor. The choice of parameters was based on their potential impact on model performance.
+- **Feature Engineering**:
+  - **Polynomial Features**: Generated polynomial and interaction features to capture more complex relationships between variables.
 
-- **Impact on Performance**: Hyperparameter tuning allowed for the refinement of each model, often resulting in improved RMSE scores. It helped in identifying the best-performing model configurations, which were crucial in making accurate predictions.
+- **Hyperparameter Tuning**:
+  - **RandomizedSearchCV**: This method was used for its efficiency in searching through a large hyperparameter space. It randomly selects a subset of the parameter combinations, allowing for a broad yet computationally feasible search.
+  - **Parameter Grids**: Specific for each model, they included parameters like `n_estimators`, `max_depth`, `learning_rate` for tree-based models, `C` and `kernel` for SVR, and `hidden_layer_sizes` and `activation` for MLPRegressor.
+  - **Impact on Performance**: Hyperparameter tuning allowed for the refinement of each model, often resulting in improved RMSE scores.
 
-This meticulous approach to modeling, evaluation, and hyperparameter tuning ensured the robustness and reliability of the predictive models, thus enabling accurate real estate price predictions.
+- **Ensemble Techniques**:
+  - **StackingRegressor**: A model that stacks the output of individual models and uses a Ridge regression as a final estimator to improve predictions.
+
+- **Optimizing KNeighborsRegressor**:
+  - **GridSearchCV**: Used to determine the best 'k' value for KNeighborsRegressor, ensuring optimal performance.
+
+This meticulous approach to modeling, evaluation, hyperparameter tuning, and feature engineering ensured the robustness and reliability of the predictive models, thus enabling accurate real estate price predictions.
+
 
