@@ -2,7 +2,7 @@
 
 This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
 
-### Description
+## Description
 
 Key highlights of the project include:
 
@@ -15,11 +15,11 @@ Key highlights of the project include:
 
 This project stands as a testament to the application of sophisticated data science techniques in real estate analytics, offering valuable insights for investors, policymakers, and market analysts.
 
-### Data Source
+## Data Source
 
 This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023), which encompasses a wealth of information about residential properties across the United States for the year 2023. The original compilation of this data is credited to Zillow, a prominent player in the real estate and rental marketplace. The dataset is rich with property-specific details, including physical attributes, Zillow's Zestimate® of property value, Rent Zestimate®, and the actual listing price. This extensive dataset provides a granular view of the housing market, enabling a comprehensive analysis of real estate trends, valuations, and rental market dynamics across various regions in the U.S.
 
-### Table of Contents
+## Table of Contents
 
 - [Description](#description)
 - [Data Source](#data-source)
@@ -34,13 +34,13 @@ This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/dat
 - [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
 
-### Installation
+## Installation
 
 ```bash
 git clone https://github.com/pclaridy/USRealEstateTrends.git
 cd USRealEstateTrends
 ```
-### Data Preprocessing
+## Data Preprocessing
 
 For this project, a meticulous data preprocessing approach was adopted to ensure high-quality input for the predictive models. Each step was carefully executed to enhance data integrity and relevance:
 
@@ -68,7 +68,7 @@ For this project, a meticulous data preprocessing approach was adopted to ensure
 
 Each preprocessing step was integral in transforming the raw dataset into a refined format, ready for effective modeling and analysis.
 
-### Modeling
+## Modeling
 
 In this real estate price prediction project, I employed a diverse array of machine learning models to understand and forecast property prices. The selection of models was based on their ability to handle regression tasks effectively. Here's an overview:
 
@@ -92,7 +92,7 @@ In this real estate price prediction project, I employed a diverse array of mach
 
 Each model was chosen for its unique strengths and ability to provide different perspectives on the dataset. This diverse set allows for a comprehensive exploration of the data, ensuring robust and reliable predictions.
 
-### Model Evaluation and Validation
+## Model Evaluation and Validation
 
 Model evaluation and validation were integral to ensuring the accuracy and generalizability of the predictions. The following strategies were employed:
 
@@ -104,7 +104,7 @@ Model evaluation and validation were integral to ensuring the accuracy and gener
 
 - **MAE (Mean Absolute Error)** and **Explained Variance Score**: Additional metrics used for a more comprehensive evaluation of model performance.
 
-### Hyperparameter Tuning and Feature Engineering
+## Hyperparameter Tuning and Feature Engineering
 
 Hyperparameter tuning and feature engineering were conducted to optimize each model's performance and enhance the predictive power of the features:
 
