@@ -27,7 +27,7 @@ This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/dat
 - [Data Preprocessing](#data-preprocessing)
 - [Modeling](#modeling)
 - [Model Evaluation and Validation](#model-evaluation-and-validation)
-- [Hyperparameter Tuning](#hyperparameter-tuning)
+- [Hyperparameter Tuning and Feature Engineering](#hyperparameter-tuning-and-feature-engineering)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
