@@ -1,23 +1,14 @@
-import numpy as np
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import KNNImputer
+from sklearn.preprocessing import StandardScaler
 
-# Load data
 df = pd.read_csv("../../data/raw/raw.csv")
-print(df.info())
-
-# Data Cleaning
-df = df[df["Price"].notna() & (df["Price"] != 0)]
-df["State"].fillna("Unknown", inplace=True)
-df["City"].fillna("Unknown", inplace=True)
-df["Street"].fillna("Unknown", inplace=True)
-
-# Transforming ZIP codes
-df["Zipcode"] = df["Zipcode"].astype(str)
-df["Zipcode"] = df["Zipcode"].str.split(".").str[0]
+print(df.head())
+df.info()
+print(df.describe())
 
 # EDA - Zero and Null Value Analysis
 zero_percentage = (df == 0).sum() / len(df) * 100
@@ -27,121 +18,237 @@ print(zero_percentage)
 print("\nPercentage of Null Values in Each Column:")
 print(null_percentage)
 
-# Correlation Analysis
-correlation_matrix = df[["MarketEstimate", "RentEstimate", "Price"]].corr()
-print("Correlation Matrix Before Imputation:")
-print(correlation_matrix)
-
-# Frequency Encoding
-df["City_Freq"] = df["City"].map(df["City"].value_counts().to_dict())
-df["Street_Freq"] = df["Street"].map(df["Street"].value_counts().to_dict())
-
-# Correlation Matrix Visualization
-numerical_df = df.select_dtypes(include=[np.number])
-plt.figure(figsize=(12, 8))
-sns.heatmap(numerical_df.corr(), annot=True, fmt=".2f", cmap="coolwarm")
-plt.title("Correlation Matrix of Numerical Variables")
-plt.show()
-
-# Handle Missing Values and Outliers
-imp_df = df.copy()
-
-# Impute 'Bedroom' and 'Bathroom'
-imp_df["Bedroom"].fillna(imp_df["Bedroom"].median(), inplace=True)
-imp_df["Bathroom"].fillna(imp_df["Bathroom"].median(), inplace=True)
-imp_df.loc[imp_df["Bedroom"] == 0, "Bedroom"] = imp_df["Bedroom"].median()
-imp_df.loc[imp_df["Bathroom"] == 0, "Bathroom"] = imp_df["Bathroom"].median()
-
-# KNN imputer will automatically handle null values, but first, set zeros to NaN
-df["Area"].replace(0, np.nan, inplace=True)
-
-# Create imputer object
-imputer = KNNImputer(n_neighbors=5)
-
-# Select columns for KNN imputation
-columns_for_imputation = ["Area"]
-
-# Apply KNN imputation
-df[columns_for_imputation] = imputer.fit_transform(df[columns_for_imputation])
-
-
-# Function to handle outliers using IQR
-def handle_outliers(df, columns):
-    for col in columns:
-        Q1 = df[col].quantile(0.25)
-        Q3 = df[col].quantile(0.75)
-        IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-        df[col] = np.where(df[col] < lower_bound, lower_bound, df[col])
-        df[col] = np.where(df[col] > upper_bound, upper_bound, df[col])
-    return df
-
-
-# Apply outlier handling to relevant numerical columns
-numerical_columns = [
-    "Bedroom",
-    "Bathroom",
-    "Area",
-    "Price",
-    "MarketEstimate",
-    "RentEstimate",
-]  # Modify as needed
-imp_df = handle_outliers(imp_df, numerical_columns)
-
-# Ensure predictors are free of NaN values
-predictors = ["Price", "Bedroom", "Bathroom", "Area"]
-for col in predictors:
-    if imp_df[col].isna().any():
-        imp_df[col].fillna(
-            imp_df[col].median(), inplace=True
-        )  # Or use another imputation method
-
-# Advanced Imputation with RandomForestRegressor
-market_model = RandomForestRegressor()
-rent_model = RandomForestRegressor()
-
-# Impute 'MarketEstimate'
-market_imp = imp_df.dropna(subset=predictors + ["MarketEstimate"])
-market_model.fit(market_imp[predictors], market_imp["MarketEstimate"])
-imp_df.loc[imp_df["MarketEstimate"].isna(), "MarketEstimate"] = market_model.predict(
-    imp_df[imp_df["MarketEstimate"].isna()][predictors]
+# Drop columns that are not useful for analysis
+df.drop(
+    [
+        "MarketEstimate",
+        "RentEstimate",
+        "LotUnit",
+        "ConvertedLot",
+    ],
+    axis=1,
+    inplace=True,
 )
 
-# Impute 'RentEstimate'
-rent_imp = imp_df.dropna(subset=predictors + ["RentEstimate"])
-rent_model.fit(rent_imp[predictors], rent_imp["RentEstimate"])
-imp_df.loc[imp_df["RentEstimate"].isna(), "RentEstimate"] = rent_model.predict(
-    imp_df[imp_df["RentEstimate"].isna()][predictors]
-)
+# Drop rows where 'City' or 'State' is null
+df.dropna(subset=["City", "State"], inplace=True)
 
-# Verify Imputation
-print("\nMissing Values After Enhanced Imputation:")
-print(imp_df.isna().sum())
+# Drop rows where 'Price' is null
+df.dropna(subset=["Price"], inplace=True)
 
-# Define threshold for dropping data
-threshold = 5  # 5%
+# Drop rows where 'Price' is zero
+df = df[df["Price"] > 0]
 
-# Calculate the percentage of missing values in each column
-missing_percentage = imp_df.isna().sum() / len(imp_df) * 100
+# Fill null values in 'Street' column with "Unknown"
+df["Street"] = df["Street"].fillna("Unknown")
 
-# Drop columns with missing values less than the threshold
-for column in imp_df.columns:
-    if missing_percentage[column] < threshold:
-        imp_df.dropna(subset=[column], inplace=True)
+# Define the mapping from states to regions
+region_mapping = {
+    "AL": "South",
+    "AK": "West",
+    "AZ": "West",
+    "AR": "South",
+    "CA": "West",
+    "CO": "West",
+    "CT": "Northeast",
+    "DE": "South",
+    "FL": "South",
+    "GA": "South",
+    "HI": "West",
+    "ID": "West",
+    "IL": "Midwest",
+    "IN": "Midwest",
+    "IA": "Midwest",
+    "KS": "Midwest",
+    "KY": "South",
+    "LA": "South",
+    "ME": "Northeast",
+    "MD": "South",
+    "MA": "Northeast",
+    "MI": "Midwest",
+    "MN": "Midwest",
+    "MS": "South",
+    "MO": "Midwest",
+    "MT": "West",
+    "NE": "Midwest",
+    "NV": "West",
+    "NH": "Northeast",
+    "NJ": "Northeast",
+    "NM": "West",
+    "NY": "Northeast",
+    "NC": "South",
+    "ND": "Midwest",
+    "OH": "Midwest",
+    "OK": "South",
+    "OR": "West",
+    "PA": "Northeast",
+    "RI": "Northeast",
+    "SC": "South",
+    "SD": "Midwest",
+    "TN": "South",
+    "TX": "South",
+    "UT": "West",
+    "VT": "Northeast",
+    "VA": "South",
+    "WA": "West",
+    "WV": "South",
+    "WI": "Midwest",
+    "WY": "West",
+}
+
+# Add a 'region' column to df
+df["Region"] = df["State"].map(region_mapping)
+
+# Check for any NaN values in the new 'region' column
+missing_regions = df["Region"].isnull().sum()
+if missing_regions > 0:
+    print(f"Warning: There are {missing_regions} rows with missing region information.")
+
+# Identify unmapped states
+# unmapped_states = df[df['Region'].isnull()]['State'].unique()
+# print("Unmapped State Abbreviations:", unmapped_states)
+
+# Create an empty DataFrame to store the imputed data
+imputed_df = pd.DataFrame()
+
+# Define the columns for imputation
+impute_cols = ["Bedroom", "Bathroom", "Area", "LotArea"]
+
+# Iterating over each region to perform KNN imputation
+for region in df["Region"].unique():
+    # Subset data for the region
+    regional_df = df[df["Region"] == region].copy()
+
+    # Check if the regional dataframe is not empty
+    if not regional_df[impute_cols].dropna().empty:
+        # Standardizing the data (optional but recommended for KNN)
+        scaler = StandardScaler()
+        regional_df_scaled = regional_df.copy()
+        regional_df_scaled[impute_cols] = scaler.fit_transform(regional_df[impute_cols])
+
+        # Applying KNN imputer
+        knn_imputer = KNNImputer(n_neighbors=5)
+        regional_df_scaled[impute_cols] = knn_imputer.fit_transform(
+            regional_df_scaled[impute_cols]
+        )
+
+        # Reverting standardization
+        regional_df[impute_cols] = scaler.inverse_transform(
+            regional_df_scaled[impute_cols]
+        )
+
+    # Append to the imputed DataFrame
+    imputed_df = pd.concat([imputed_df, regional_df])
+
+# Replace the original df with the imputed_df
+df = imputed_df
+
+# EDA - Zero and Null Value Analysis
+zero_percentage = (df == 0).sum() / len(df) * 100
+null_percentage = df.isnull().sum() / len(df) * 100
+print("Percentage of Zeros in Each Column:")
+print(zero_percentage)
+print("\nPercentage of Null Values in Each Column:")
+print(null_percentage)
+
+# Create a DataFrame with properties that have zero bedrooms and bathrooms
+zero_bed_bath_df = df[(df["Bedroom"] == 0) & (df["Bathroom"] == 0)]
+
+# Display the first few rows of the new DataFrame
+print(zero_bed_bath_df.head())
+
+# Save df to a CSV file for inspection
+zero_bed_bath_df.to_csv("../../data/zero_bed_bath_properties.csv", index=False)
+
+# Filter out properties with zero bedrooms, bathrooms, area, or lot area
+df = df[(df["Bedroom"] != 0) & (df["Bathroom"] != 0)]
+df = df[(df["Area"] != 0) & (df["LotArea"] != 0)]
+
+# Confirm the properties have been removed
+print("Number of properties with zero bedrooms:", df[df["Bedroom"] == 0].shape[0])
+print("Number of properties with zero bathrooms:", df[df["Bathroom"] == 0].shape[0])
+
+# Convert ZIP codes to strings
+df["Zipcode"] = df["Zipcode"].apply(lambda x: f"{int(x):05d}")
 
 # Verify the changes
-print("\nData after dropping rows with <5% missing values:")
-print(imp_df.isna().sum() / len(imp_df) * 100)
+print(df["Zipcode"].head())
 
-# Update 'PPSq' column
-imp_df.loc[imp_df["PPSq"].isna() | (imp_df["PPSq"] == 0), "PPSq"] = imp_df.apply(
-    lambda row: row["Price"] / row["Area"] if row["Area"] > 0 else 0, axis=1
+# EDA - Zero and Null Value Analysis
+zero_percentage = (df == 0).sum() / len(df) * 100
+null_percentage = df.isnull().sum() / len(df) * 100
+print("Percentage of Zeros in Each Column:")
+print(zero_percentage)
+print("\nPercentage of Null Values in Each Column:")
+print(null_percentage)
+
+# Calculate 'PPSq' for rows with null values
+df_with_ppsq = df.copy()
+
+# Calculate 'PPSq' as Price per square foot
+df_with_ppsq.loc[df_with_ppsq["PPSq"].isnull(), "PPSq"] = (
+    df_with_ppsq["Price"] / df_with_ppsq["Area"]
 )
 
-# Verify 'PPSq' Update
-print("\nData after updating 'PPSq' column:")
-print(imp_df.isna().sum() / len(imp_df) * 100)
+# Replace the original DataFrame with the modified DataFrame
+df = df_with_ppsq
 
-# Save cleaned dataset
-imp_df.to_pickle("../../data/processed/cleaned_dataset.pkl")
+# EDA - Zero and Null Value Analysis
+zero_percentage = (df == 0).sum() / len(df) * 100
+null_percentage = df.isnull().sum() / len(df) * 100
+print("Percentage of Zeros in Each Column:")
+print(zero_percentage)
+print("\nPercentage of Null Values in Each Column:")
+print(null_percentage)
+
+# Create an empty DataFrame to store the filtered data
+filtered_df = pd.DataFrame()
+
+# Handle Outliers by standardizing the 'Price' column, removing outliers, then reverting the standardization
+# Outlier threshold
+upper_outlier_threshold = 3  # Upper threshold based on standard deviations
+lower_price_threshold = 10000  # Lower threshold based on a realistic minimum price
+upper_bedroom_threshold = (
+    15  # Upper threshold based on a realistic maximum number of bedrooms
+)
+
+for region in df["Region"].unique():
+    # Subset data for the region
+    regional_df = df[df["Region"] == region].copy()
+
+    # Standardize Price
+    mean_price = regional_df["Price"].mean()
+    std_price = regional_df["Price"].std()
+    regional_df["Standardized_Price"] = (regional_df["Price"] - mean_price) / std_price
+
+    # Remove outliers based on Price
+    is_within_upper_price_threshold = (
+        np.abs(regional_df["Standardized_Price"]) <= upper_outlier_threshold
+    )
+    is_above_lower_price_threshold = regional_df["Price"] >= lower_price_threshold
+
+    # Remove outliers based on Bedroom
+    is_within_upper_bedroom_threshold = (
+        regional_df["Bedroom"] <= upper_bedroom_threshold
+    )
+
+    # Apply all filters
+    regional_df = regional_df[
+        is_within_upper_price_threshold
+        & is_above_lower_price_threshold
+        & is_within_upper_bedroom_threshold
+    ]
+
+    # Drop the 'Standardized_Price' column
+    regional_df.drop("Standardized_Price", axis=1, inplace=True)
+
+    # Append to the filtered DataFrame
+    filtered_df = pd.concat([filtered_df, regional_df])
+
+# Confirm the changes
+print(filtered_df.groupby("Region")["Price"].describe())
+
+df = filtered_df
+
+df.to_pickle("../../data/processed/processed_data.pkl")
+df.to_csv("../../data/processed/processed_data.csv", index=False)
