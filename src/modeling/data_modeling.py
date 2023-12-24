@@ -2,21 +2,35 @@ import numpy as np
 import pandas as pd
 import time
 from tqdm import tqdm
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
+from sklearn.model_selection import (
+    train_test_split,
+    cross_val_score,
+    GridSearchCV,
+    RandomizedSearchCV,
+)
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, explained_variance_score
+from sklearn.metrics import (
+    mean_squared_error,
+    r2_score,
+    mean_absolute_error,
+    explained_variance_score,
+)
 from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, StackingRegressor
+from sklearn.ensemble import (
+    RandomForestRegressor,
+    GradientBoostingRegressor,
+    StackingRegressor,
+)
 from sklearn.svm import SVR
 from sklearn.neural_network import MLPRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from xgboost import XGBRegressor
 
 # Load and preprocess data
-df = pd.read_pickle("../../data/processed/cleaned_dataset.pkl")
+df = pd.read_pickle("../../data/processed/processed_data.pkl")
 
 # Split data into features (X) and target (y)
 X = df.drop("Price", axis=1)  # Ensure 'Price' is not in features
