@@ -156,4 +156,6 @@ for idx, row in df.iterrows():
     ).add_to(marker_cluster)
 
 # Display the map
-m.save("../interactive_map.html")  # This will save the interactive map as an HTML file
+m.save(
+    "../../interactive_map.html"
+)  # This will save the interactive map as an HTML file
