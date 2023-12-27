@@ -1,0 +1,45 @@
+RMSE,MAE,R2,Model,Region,Best Parameters
+1626132.3320858765,982623.8507287526,-25.860607562298313,LinearRegression,South,N/A
+186800.9114092522,109354.839395861,0.6455442354889812,Lasso,South,"{'model__max_iter': 1000, 'model__alpha': 100}"
+178941.1546554243,108444.1518742526,0.6747445871320011,Ridge,South,{'model__alpha': 1}
+181073.85553387715,108431.31803142624,0.6669453052285331,ElasticNet,South,"{'model__l1_ratio': 0.1, 'model__alpha': 0.001}"
+217769.90958786174,128156.32608681307,0.5182743142628985,DecisionTreeRegressor,South,"{'model__min_samples_split': 10, 'model__min_samples_leaf': 4, 'model__max_depth': 20}"
+208769.13525110602,111170.2299286888,0.5572723495117424,RandomForestRegressor,South,"{'model__n_estimators': 200, 'model__min_samples_split': 2, 'model__min_samples_leaf': 1, 'model__max_features': 'sqrt', 'model__max_depth': 30}"
+190692.9418568683,102045.37937848111,0.6306200658974965,GradientBoostingRegressor,South,"{'model__n_estimators': 250, 'model__min_samples_split': 2, 'model__min_samples_leaf': 1, 'model__max_depth': 7, 'model__learning_rate': 0.1}"
+188442.45779024073,98211.37710735318,0.6392871765382259,XGBRegressor,South,"{'model__subsample': 0.7, 'model__n_estimators': 250, 'model__min_child_weight': 1, 'model__max_depth': 9, 'model__learning_rate': 0.05, 'model__gamma': 0, 'model__colsample_bytree': 0.5}"
+210773.198788164,115961.97918373952,0.5487316913764528,KNeighborsRegressor,South,"{'model__weights': 'distance', 'model__n_neighbors': 10, 'model__algorithm': 'ball_tree'}"
+235520.75460520035,123100.81913369981,0.4365408571636761,SVR,South,"{'model__kernel': 'linear', 'model__gamma': 'scale', 'model__C': 100}"
+201208.85855042876,116536.95960699598,0.588757248084004,MLPRegressor,South,"{'model__solver': 'adam', 'model__learning_rate': 'constant', 'model__hidden_layer_sizes': (100, 100), 'model__alpha': 0.001, 'model__activation': 'relu'}"
+614961.5383614246,336389.51815677556,0.1924539527301815,LinearRegression,West,N/A
+446726.0874936947,198187.87862096116,0.5738583174951103,Lasso,West,"{'model__max_iter': 5000, 'model__alpha': 100}"
+425613.19182547106,210769.73293195956,0.6131865670043948,Ridge,West,{'model__alpha': 1}
+434540.1754968206,212141.24480256837,0.5967900342467791,ElasticNet,West,"{'model__l1_ratio': 0.1, 'model__alpha': 0.001}"
+561656.9652591271,261753.39580988773,0.3263819980080467,DecisionTreeRegressor,West,"{'model__min_samples_split': 10, 'model__min_samples_leaf': 4, 'model__max_depth': 30}"
+466400.86284476746,208044.85124982995,0.5354953379818803,RandomForestRegressor,West,"{'model__n_estimators': 200, 'model__min_samples_split': 2, 'model__min_samples_leaf': 1, 'model__max_features': 'sqrt', 'model__max_depth': 30}"
+448911.12456938496,205557.77628189448,0.5696794141471606,GradientBoostingRegressor,West,"{'model__n_estimators': 100, 'model__min_samples_split': 2, 'model__min_samples_leaf': 4, 'model__max_depth': 3, 'model__learning_rate': 0.1}"
+430897.0620347523,182865.8734292328,0.6035225854002025,XGBRegressor,West,"{'model__subsample': 0.7, 'model__n_estimators': 250, 'model__min_child_weight': 1, 'model__max_depth': 9, 'model__learning_rate': 0.05, 'model__gamma': 0, 'model__colsample_bytree': 0.5}"
+475877.26667234063,220514.78271113354,0.5164278247076126,KNeighborsRegressor,West,"{'model__weights': 'distance', 'model__n_neighbors': 10, 'model__algorithm': 'ball_tree'}"
+575958.0585787463,248392.72634063996,0.29164150748379214,SVR,West,"{'model__kernel': 'linear', 'model__gamma': 'scale', 'model__C': 100}"
+500053.0055793253,251797.6106188047,0.466046459334841,MLPRegressor,West,"{'model__solver': 'adam', 'model__learning_rate': 'constant', 'model__hidden_layer_sizes': (100, 100), 'model__alpha': 0.001, 'model__activation': 'relu'}"
+872502.6164834899,547001.891258387,-18.26526238010178,LinearRegression,Midwest,N/A
+145790.41059262707,91985.33780194129,0.46210269256971004,Lasso,Midwest,"{'model__max_iter': 1000, 'model__alpha': 100}"
+150141.43518106823,96082.51880844061,0.42951716980833576,Ridge,Midwest,{'model__alpha': 100}
+153100.00525986525,97243.05168526726,0.4068126739082796,ElasticNet,Midwest,"{'model__l1_ratio': 0.5, 'model__alpha': 1}"
+169666.49514795453,112049.38012457367,0.2714931673861569,DecisionTreeRegressor,Midwest,"{'model__min_samples_split': 10, 'model__min_samples_leaf': 4, 'model__max_depth': 20}"
+137695.58641539203,86223.88851252761,0.5201765245578815,RandomForestRegressor,Midwest,"{'model__n_estimators': 200, 'model__min_samples_split': 2, 'model__min_samples_leaf': 1, 'model__max_features': 'sqrt', 'model__max_depth': 30}"
+134241.65950566117,82402.49348478772,0.5439462020940089,GradientBoostingRegressor,Midwest,"{'model__n_estimators': 250, 'model__min_samples_split': 2, 'model__min_samples_leaf': 1, 'model__max_depth': 7, 'model__learning_rate': 0.1}"
+133702.76513106315,80818.00553073235,0.5476003811743454,XGBRegressor,Midwest,"{'model__subsample': 0.7, 'model__n_estimators': 250, 'model__min_child_weight': 1, 'model__max_depth': 9, 'model__learning_rate': 0.05, 'model__gamma': 0, 'model__colsample_bytree': 0.5}"
+144518.67031905803,91248.35694862745,0.4714459969617455,KNeighborsRegressor,Midwest,"{'model__weights': 'distance', 'model__n_neighbors': 10, 'model__algorithm': 'ball_tree'}"
+153904.73188940313,95641.92848768245,0.40056044454216966,SVR,Midwest,"{'model__kernel': 'linear', 'model__gamma': 'scale', 'model__C': 100}"
+149593.66509111694,94826.9786545978,0.4336722304880122,MLPRegressor,Midwest,"{'model__solver': 'adam', 'model__learning_rate': 'constant', 'model__hidden_layer_sizes': (100, 100), 'model__alpha': 0.001, 'model__activation': 'relu'}"
+1386744.87973488,954965.7885877289,-8.511914783160346,LinearRegression,Northeast,N/A
+365308.34591187624,180715.34061851708,0.33992391630746466,Lasso,Northeast,"{'model__max_iter': 1000, 'model__alpha': 100}"
+348039.1372745422,184987.20143614124,0.40085632951371986,Ridge,Northeast,{'model__alpha': 10}
+347670.1877901402,186278.14775731644,0.40212593719439926,ElasticNet,Northeast,"{'model__l1_ratio': 0.9, 'model__alpha': 0.01}"
+406910.5514775935,214566.14814105217,0.18102110175825348,DecisionTreeRegressor,Northeast,"{'model__min_samples_split': 10, 'model__min_samples_leaf': 4, 'model__max_depth': 20}"
+332494.1291806567,171385.2597617146,0.4531820384287425,RandomForestRegressor,Northeast,"{'model__n_estimators': 150, 'model__min_samples_split': 10, 'model__min_samples_leaf': 1, 'model__max_features': 'log2', 'model__max_depth': None}"
+333014.3970532909,174285.4117926926,0.4514694403953189,GradientBoostingRegressor,Northeast,"{'model__n_estimators': 250, 'model__min_samples_split': 2, 'model__min_samples_leaf': 2, 'model__max_depth': 3, 'model__learning_rate': 0.05}"
+332448.6698642635,165702.18712667542,0.4533315524756102,XGBRegressor,Northeast,"{'model__subsample': 0.9, 'model__n_estimators': 100, 'model__min_child_weight': 1, 'model__max_depth': 7, 'model__learning_rate': 0.2, 'model__gamma': 0, 'model__colsample_bytree': 0.6}"
+367783.1155429783,192792.0393939394,0.3309502947965307,KNeighborsRegressor,Northeast,"{'model__weights': 'uniform', 'model__n_neighbors': 10, 'model__algorithm': 'brute'}"
+386875.63185993006,191009.0274118095,0.2596832763916823,SVR,Northeast,"{'model__kernel': 'linear', 'model__gamma': 'scale', 'model__C': 100}"
+410172.4181169485,209105.94623149047,0.16783831678018268,MLPRegressor,Northeast,"{'model__solver': 'adam', 'model__learning_rate': 'adaptive', 'model__hidden_layer_sizes': (100, 100), 'model__alpha': 0.001, 'model__activation': 'relu'}"

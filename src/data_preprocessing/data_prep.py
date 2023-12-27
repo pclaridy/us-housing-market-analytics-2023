@@ -25,6 +25,7 @@ df.drop(
         "RentEstimate",
         "LotUnit",
         "ConvertedLot",
+        "PPSq",
     ],
     axis=1,
     inplace=True,
@@ -158,7 +159,9 @@ zero_bed_bath_df = df[(df["Bedroom"] == 0) & (df["Bathroom"] == 0)]
 print(zero_bed_bath_df.head())
 
 # Save df to a CSV file for inspection
-zero_bed_bath_df.to_csv("../../data/zero_bed_bath_properties.csv", index=False)
+zero_bed_bath_df.to_csv(
+    "../../data/processed/zero_bed_bath_properties.csv", index=False
+)
 
 # Filter out properties with zero bedrooms, bathrooms, area, or lot area
 df = df[(df["Bedroom"] != 0) & (df["Bathroom"] != 0)]
@@ -181,17 +184,6 @@ print("Percentage of Zeros in Each Column:")
 print(zero_percentage)
 print("\nPercentage of Null Values in Each Column:")
 print(null_percentage)
-
-# Calculate 'PPSq' for rows with null values
-df_with_ppsq = df.copy()
-
-# Calculate 'PPSq' as Price per square foot
-df_with_ppsq.loc[df_with_ppsq["PPSq"].isnull(), "PPSq"] = (
-    df_with_ppsq["Price"] / df_with_ppsq["Area"]
-)
-
-# Replace the original DataFrame with the modified DataFrame
-df = df_with_ppsq
 
 # EDA - Zero and Null Value Analysis
 zero_percentage = (df == 0).sum() / len(df) * 100
