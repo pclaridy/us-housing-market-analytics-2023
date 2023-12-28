@@ -57,6 +57,10 @@ For this project, a meticulous data preprocessing approach was adopted to ensure
   - **Preparation for RandomForestRegressor**: Ensured no NaN values in predictor columns ('Price', 'Bedroom', 'Bathroom', 'Area') before advanced imputation.
   - **RandomForestRegressor for Market and Rent Estimates**: Employed RandomForestRegressor for imputing missing values in 'MarketEstimate' and 'RentEstimate', considering multiple feature relationships.
 
+- **Filtering and Removal of Properties**:
+  - **Removal of Zero Bedroom and Bathroom Properties**: Excluded properties with zero bedrooms, bathrooms, area, or lot area.
+  - **Outlier Removal for Price and Bedrooms**: Filtered out extreme values in price and bedroom count to maintain data quality.
+
 - **Data Analysis and Finalization**:
   - **Correlation Analysis**: Explored relationships between 'MarketEstimate', 'RentEstimate', 'Price', and other variables.
   - **Correlation Matrix Visualization**: Used heatmap visualization to understand correlations among numerical variables.
@@ -155,5 +159,3 @@ These findings underscore the value of ensemble methods like GradientBoostingReg
 ## Conclusion and Future Work
 
 The analysis provides a comprehensive view of the effectiveness of various machine learning models in predicting real estate prices. The insights gained from this project can be pivotal for stakeholders in the real estate market. For future work, exploring additional features, different modeling techniques, or deploying the model in a real-world application could be considered to further enhance the project's impact.
-
-
