@@ -34,8 +34,8 @@ This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/dat
 ## Installation
 
 ```bash
-git clone https://github.com/pclaridy/USRealEstateTrends.git
-cd USRealEstateTrends
+git clone https://github.com/pclaridy/us-housing-market-analytics-2023
+cd us-housing-market-analytics-2023
 ```
 ## Data Preprocessing
 
