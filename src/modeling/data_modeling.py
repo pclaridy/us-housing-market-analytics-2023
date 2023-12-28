@@ -1,18 +1,23 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.preprocessing import StandardScaler, PolynomialFeatures, OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.ensemble import (
+    RandomForestRegressor,
+    GradientBoostingRegressor,
+    StackingRegressor,
+)
 from sklearn.svm import SVR
 from sklearn.neural_network import MLPRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from xgboost import XGBRegressor
+from sklearn.model_selection import train_test_split, RandomizedSearchCV, GridSearchCV
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from tqdm import tqdm
+
 
 # Load and preprocess data
 df = pd.read_csv("../../data/processed/processed_data.csv")
@@ -211,9 +216,7 @@ results_df.to_csv("../../data/all_region_results.csv", index=False)
 print("Results saved to all_region_results.csv")
 
 
-from sklearn.model_selection import train_test_split
-
-# Assuming df is your main dataset
+# Create a dictionary to hold train and test sets for each region
 regions = df["Region"].unique()
 
 # Dictionaries to hold train and test sets for each region
@@ -244,13 +247,7 @@ for region in regions:
     y_train_regions[region] = y_train
     y_test_regions[region] = y_test
 
-# Now you have separate training and testing sets for each region
 
-# Import necessary libraries
-import pandas as pd
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
-
-# Assuming the results are stored in 'all_region_results'
 results_df = pd.DataFrame(all_region_results)
 
 
@@ -303,8 +300,6 @@ print("Final Model Performance:")
 print(final_results_df)
 
 
-from sklearn.model_selection import GridSearchCV
-
 # Define a more extensive grid of hyperparameters for the XGBRegressor
 param_grid_xgb = {
     "model__n_estimators": [100, 200, 300, 400],
@@ -340,23 +335,13 @@ rmse, mae, r2 = evaluate_performance(
     best_model, X_test_regions["Northeast"], y_test_regions["Northeast"]
 )
 
-# Example of creating a new feature
-df["NewFeature"] = df["ExistingFeature1"] / df["ExistingFeature2"]
-
-# Example of transforming an existing feature
-df["TransformedFeature"] = df["ExistingFeature"].apply(
-    np.log1p
-)  # Applying log transformation
-
 # Update your categorical and numerical columns lists
 categorical_cols_updated = [col for col in df.columns if df[col].dtype == "object"]
 numerical_cols_updated = [
     col for col in df.columns if df[col].dtype in ["int64", "float64"]
 ]
 
-from sklearn.ensemble import StackingRegressor
-
-# Example of a stacking regressor
+# Stacking regressor
 estimators = [
     ("rf", RandomForestRegressor(n_estimators=100)),
     ("xgb", XGBRegressor(n_estimators=100)),
