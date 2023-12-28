@@ -1,4 +1,4 @@
-# Unveiling American Real Estate: A Comprehensive Analysis of Residential Listings
+# Predictive Insights into U.S. Housing Market: Advanced Analytics of Residential Property Listings
 
 This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
 
