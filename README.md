@@ -2,6 +2,15 @@
 
 This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
 
+## Interactive Real Estate Sales Map of 2023
+
+To offer a visual representation of my findings, I have developed an interactive HTML map displaying the real estate sales count for 2023. This map enables users to identify regional market trends at a glance, providing an intuitive understanding of the distribution and volume of property sales across the United States.
+
+![Real Estate Sales Count Map 2023](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Interactive%20map.png)
+
+The map highlights the concentration of sales in various regions, shedding light on market hotspots and areas with lower transaction volumes. By overlaying this data with socioeconomic and demographic information, we can begin to interpret the underlying factors driving these trends.
+
+
 ## Description
 
 Key highlights of the project include:
