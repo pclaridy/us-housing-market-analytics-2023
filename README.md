@@ -2,36 +2,17 @@
 
 This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
 
-## Interactive Real Estate Sales Map of 2023
+## Table of Contents
 
-To offer a visual representation of my findings, I have developed an interactive HTML map displaying the real estate sales count for 2023. This map enables users to identify regional market trends at a glance, providing an intuitive understanding of the distribution and volume of property sales across the United States.
-
-![Real Estate Sales Count Map 2023](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Interactive%20map.png)
-
-The map highlights the concentration of sales in various regions, shedding light on market hotspots and areas with lower transaction volumes. By overlaying this data with socioeconomic and demographic information, we can begin to interpret the underlying factors driving these trends.
-
-## Visual Data Analysis
-
-To provide a deeper understanding of the data, several visual analyses were conducted:
-
-![Geographical Distribution of Properties](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Geographical%20Distribution%20of%20Properties.png)
-
-*Geographical Distribution of Properties*: This visualization gives an overview of property distribution across the country, offering insights into regional market densities.
-
-![Price Distribution in Each Region](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Price%20Distribution%20in%20Each%20Region.png)
-
-*Price Distribution in Each Region*: Understanding the variance in property prices within regions helps identify economic factors and market conditions influencing the housing landscape.
-
-### Detailed Correlation Analysis
-
-Heatmaps were generated to explore the relationships between different variables within specific regions:
-
-- ![Correlation heatmap Midwest](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Midwest.png)
-- ![Correlation heatmap Northeast](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Northeast.png)
-- ![Correlation heatmap South](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20South.png)
-- ![Correlation heatmap West](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20West.png)
-
-These heatmaps reveal the intricate relationships between market estimates, rent estimates, prices, and other influential factors.
+- [Description](#description)
+- [Data Source](#data-source)
+- [Installation](#installation)
+- [Data Preprocessing](#data-preprocessing)
+- [Modeling](#modeling)
+- [Model Evaluation and Validation](#model-evaluation-and-validation)
+- [Hyperparameter Tuning and Feature Engineering](#hyperparameter-tuning-and-feature-engineering)
+- [Analysis and Interpretation of Results](#analysis-and-interpretation-of-results)
+- [Conclusion and Future Work](#conclusion-and-future-work)
 
 ## Description
 
@@ -49,18 +30,6 @@ This project stands as a testament to the application of sophisticated data scie
 ## Data Source
 
 This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023), which encompasses information about residential properties across the United States for the year 2023. The original compilation of this data is credited to Zillow, a prominent player in the real estate and rental marketplace. The dataset is rich with property-specific details, including physical attributes, Zillow's Zestimate® of property value, Rent Zestimate®, and the actual listing price. This extensive dataset provides a granular view of the housing market, enabling a comprehensive analysis of real estate trends, valuations, and rental market dynamics across various regions in the U.S.
-
-## Table of Contents
-
-- [Description](#description)
-- [Data Source](#data-source)
-- [Installation](#installation)
-- [Data Preprocessing](#data-preprocessing)
-- [Modeling](#modeling)
-- [Model Evaluation and Validation](#model-evaluation-and-validation)
-- [Hyperparameter Tuning and Feature Engineering](#hyperparameter-tuning-and-feature-engineering)
-- [Analysis and Interpretation of Results](#analysis-and-interpretation-of-results)
-- [Conclusion and Future Work](#conclusion-and-future-work)
 
 ## Installation
 
@@ -157,6 +126,37 @@ Hyperparameter tuning and feature engineering were conducted to optimize each mo
 This meticulous approach to modeling, evaluation, hyperparameter tuning, and feature engineering ensured the robustness and reliability of the predictive models, thus enabling accurate real estate price predictions.
 
 ## Analysis and Interpretation of Results
+
+## Interactive Real Estate Sales Map of 2023
+
+To offer a visual representation of my findings, I have developed an interactive HTML map displaying the real estate sales count for 2023. This map enables users to identify regional market trends at a glance, providing an intuitive understanding of the distribution and volume of property sales across the United States.
+
+![Real Estate Sales Count Map 2023](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Interactive%20map.png)
+
+The map highlights the concentration of sales in various regions, shedding light on market hotspots and areas with lower transaction volumes. By overlaying this data with socioeconomic and demographic information, we can begin to interpret the underlying factors driving these trends.
+
+## Visual Data Analysis
+
+To provide a deeper understanding of the data, several visual analyses were conducted:
+
+![Geographical Distribution of Properties](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Geographical%20Distribution%20of%20Properties.png)
+
+*Geographical Distribution of Properties*: This visualization gives an overview of property distribution across the country, offering insights into regional market densities.
+
+![Price Distribution in Each Region](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Price%20Distribution%20in%20Each%20Region.png)
+
+*Price Distribution in Each Region*: Understanding the variance in property prices within regions helps identify economic factors and market conditions influencing the housing landscape.
+
+### Detailed Correlation Analysis
+
+Heatmaps were generated to explore the relationships between different variables within specific regions:
+
+- ![Correlation heatmap Midwest](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Midwest.png)
+- ![Correlation heatmap Northeast](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Northeast.png)
+- ![Correlation heatmap South](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20South.png)
+- ![Correlation heatmap West](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20West.png)
+
+These heatmaps reveal the intricate relationships between market estimates, rent estimates, prices, and other influential factors.
 
 ### Performance Improvements from Hyperparameter Tuning
 
