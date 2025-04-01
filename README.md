@@ -14,7 +14,7 @@
 ---
 
 ## **1. Problem Statement**  
-This project focuses on understanding and predicting U.S. residential property prices using Zillow’s 2023 house listings. The main goal is to uncover patterns and trends across different regions and develop machine learning models that can accurately estimate housing prices. These insights are meant to support better decision-making for investors, analysts, and policymakers working in the real estate space.
+Accurately predicting residential property prices is essential for informed decision-making in real estate investment, policy planning, and market analysis. This project leverages Zillow’s 2023 house listings to identify the key factors driving housing prices across different U.S. regions. Using machine learning techniques, the goal is to build predictive models that estimate property values based on features such as location, home size, and amenities. In addition to forecasting accuracy, the project emphasizes regional insights and model interpretability to help investors, analysts, and policymakers better understand local market dynamics and make data-informed decisions.
 
 ## **2. Data Source**  
 The dataset was sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023) and originally compiled by Zillow. It includes detailed information about residential properties across the United States, such as square footage, bedroom and bathroom counts, Zestimate®, Rent Zestimate®, and actual listing prices. This dataset offers a comprehensive look at the 2023 housing market and provides a solid foundation for analysis and modeling.
