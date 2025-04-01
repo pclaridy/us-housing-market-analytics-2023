@@ -1,192 +1,135 @@
-# Predictive Insights into U.S. Housing Market: Advanced Analytics of Residential Property Listings
+# **Predictive Modeling of U.S. Housing Prices Using Zillow’s 2023 Listings**
 
-This initiative is a data-driven exploration into the U.S. residential real estate market using the 2023 Zillow House Listings dataset. This project harnesses advanced data analytics techniques to unravel trends and patterns in property listings across various U.S. regions.
+## **Table of Contents**
+- [1. Problem Statement](#1-problem-statement)  
+- [2. Data Source](#2-data-source)  
+- [3. Data Cleaning & Preprocessing](#3-data-cleaning--preprocessing)  
+- [4. Exploratory Data Analysis (EDA)](#4-exploratory-data-analysis-eda)  
+- [5. Modeling Approach](#5-modeling-approach)  
+- [6. Evaluation Metrics](#6-evaluation-metrics)  
+- [7. Outcome](#7-outcome)  
+- [8. Tools Used](#8-tools-used)  
+- [9. Business Impact / Use Case](#9-business-impact--use-case)
 
-## Table of Contents
+---
 
-- [Description](#description)
-- [Data Source](#data-source)
-- [Installation](#installation)
-- [Data Preprocessing](#data-preprocessing)
-- [Modeling](#modeling)
-- [Model Evaluation and Validation](#model-evaluation-and-validation)
-- [Hyperparameter Tuning and Feature Engineering](#hyperparameter-tuning-and-feature-engineering)
-- [Analysis and Interpretation of Results](#analysis-and-interpretation-of-results)
-- [Conclusion and Future Work](#conclusion-and-future-work)
+## **1. Problem Statement**  
+This project focuses on understanding and predicting U.S. residential property prices using Zillow’s 2023 house listings. The main goal is to uncover patterns and trends across different regions and develop machine learning models that can accurately estimate housing prices. These insights are meant to support better decision-making for investors, analysts, and policymakers working in the real estate space.
 
-## Description
+## **2. Data Source**  
+The dataset was sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023) and originally compiled by Zillow. It includes detailed information about residential properties across the United States, such as square footage, bedroom and bathroom counts, Zestimate®, Rent Zestimate®, and actual listing prices. This dataset offers a comprehensive look at the 2023 housing market and provides a solid foundation for analysis and modeling.
 
-Key highlights of the project include:
+## **3. Data Cleaning & Preprocessing**  
+To prepare the data for modeling, I followed a thorough preprocessing workflow that focused on cleaning, transforming, and enriching the dataset for analysis:
 
-- **Rich Dataset Analysis:** Utilizing a comprehensive dataset from Zillow, the project offers insights into property attributes, valuations, and market dynamics.
-- **In-depth Data Preprocessing:** Rigorous data cleaning, KNN imputation for area estimation, outlier handling, and frequency encoding, ensuring high-quality data for model inputs.
-- **Advanced Modeling Techniques:** Deployment of diverse machine learning models including ensemble methods like RandomForest and GradientBoosting, alongside Linear and Neural Network models.
-- **Robust Model Evaluation:** Employing 5-fold cross-validation, RMSE, R² Score, along with MAE and Explained Variance Score for a multi-dimensional assessment of model performance.
-- **Hyperparameter Tuning and Feature Engineering:** Optimization of model parameters and incorporation of polynomial features to enhance predictive accuracy.
-- **User-friendly Interface:** The project is presented in a structured manner, suitable for both technical and non-technical audiences, with an emphasis on clarity and accessibility.
+- **Initial Cleaning**:  
+  - Loaded the CSV file and converted ZIP codes to strings  
+  - Analyzed missing values and removed rows where the price was missing or zero  
 
-This project stands as a testament to the application of sophisticated data science techniques in real estate analytics, offering valuable insights for investors, policymakers, and market analysts.
+- **Imputation and Transformation**:  
+  - Replaced missing values in categorical columns like 'State', 'City', and 'Street' with 'Unknown'  
+  - Replaced zero values in the 'Area' column with NaNs, then used KNN imputation to estimate those missing values  
+  - Applied the IQR method to detect and handle outliers in numerical features  
+  - Used frequency encoding for high-cardinality features like 'City' and 'Street'
 
-## Data Source
+- **Advanced Imputation**:  
+  - Trained a RandomForestRegressor to predict missing values for 'MarketEstimate' and 'RentEstimate'  
+  - Ensured all required predictor columns (such as 'Price', 'Bedroom', 'Bathroom', and 'Area') had no missing values
 
-This project utilizes a dataset sourced from [Kaggle](https://www.kaggle.com/datasets/febinphilips/us-house-listings-2023), which encompasses information about residential properties across the United States for the year 2023. The original compilation of this data is credited to Zillow, a prominent player in the real estate and rental marketplace. The dataset is rich with property-specific details, including physical attributes, Zillow's Zestimate® of property value, Rent Zestimate®, and the actual listing price. This extensive dataset provides a granular view of the housing market, enabling a comprehensive analysis of real estate trends, valuations, and rental market dynamics across various regions in the U.S.
+- **Filtering and Final Steps**:  
+  - Removed entries with zero values in key fields like bedrooms, bathrooms, area, or lot area  
+  - Filtered out extreme outliers in price and bedroom count to maintain data quality  
+  - Performed correlation analysis and created a heatmap to better understand relationships between variables  
+  - Exported the cleaned dataset as a Pickle file for efficient reuse
 
-## Installation
+## **4. Exploratory Data Analysis (EDA)**
 
-```bash
-git clone https://github.com/pclaridy/us-housing-market-analytics-2023
-cd us-housing-market-analytics-2023
-```
-## Data Preprocessing
-
-For this project, a meticulous data preprocessing approach was adopted to ensure high-quality input for the predictive models. Each step was carefully executed to enhance data integrity and relevance:
-
-- **Initial Inspection and Cleaning**:
-  - **Data Loading**: Loaded the dataset from a CSV file for initial exploration.
-  - **ZIP Code Transformation**: Converted ZIP codes to strings to maintain the format.
-  - **Missing and Zero Value Analysis**: Investigated and quantified the extent of missing and zero values.
-  - **Handling Missing 'Price' Values**: Removed rows with missing or zero 'Price' values.
-
-- **Data Imputation and Transformation**:
-  - **Categorical Columns**: Imputed missing values in 'State', 'City', and 'Street' with 'Unknown'.
-  - **KNN Imputation for 'Area'**: Replaced zeros with NaNs and employed KNN imputation to estimate missing 'Area' values based on neighboring data points.
-  - **Handling Outliers**: Applied Interquartile Range (IQR) method to identify and handle outliers in numerical columns.
-  - **Frequency Encoding**: Applied to 'City' and 'Street' columns for managing categorical complexity.
-
-- **Advanced Data Imputation**:
-  - **Preparation for RandomForestRegressor**: Ensured no NaN values in predictor columns ('Price', 'Bedroom', 'Bathroom', 'Area') before advanced imputation.
-  - **RandomForestRegressor for Market and Rent Estimates**: Employed RandomForestRegressor for imputing missing values in 'MarketEstimate' and 'RentEstimate', considering multiple feature relationships.
-
-- **Filtering and Removal of Properties**:
-  - **Removal of Zero Bedroom and Bathroom Properties**: Excluded properties with zero bedrooms, bathrooms, area, or lot area.
-  - **Outlier Removal for Price and Bedrooms**: Filtered out extreme values in price and bedroom count to maintain data quality.
-
-- **Data Analysis and Finalization**:
-  - **Correlation Analysis**: Explored relationships between 'MarketEstimate', 'RentEstimate', 'Price', and other variables.
-  - **Correlation Matrix Visualization**: Used heatmap visualization to understand correlations among numerical variables.
-  - **Final Missing Value Check**: Ensured all missing values were appropriately addressed.
-  - **Exporting Cleaned Data**: Saved the preprocessed dataset as a Pickle file to preserve data structure and types.
-
-Each preprocessing step was integral in transforming the raw dataset into a refined format, ready for effective modeling and analysis.
-
-## Modeling
-
-In this real estate price prediction project, I employed a diverse array of machine learning models to understand and forecast property prices. The selection of models was based on their ability to handle regression tasks effectively. Here's an overview:
-
-- **Linear Models**:
-  - **LinearRegression**: A baseline model for its simplicity and interpretability.
-  - **Lasso**: Useful for its ability to perform feature selection by shrinking coefficients of less important features to zero.
-  - **Ridge**: Tackles multicollinearity (high correlation among features) by imposing a penalty on the size of coefficients.
-  - **ElasticNet**: Combines features of both Lasso and Ridge, making it robust against various data peculiarities.
-
-- **Tree-Based Models**:
-  - **DecisionTreeRegressor**: Offers a deep level of insight with its hierarchical structure of decision nodes and leaves.
-  - **RandomForestRegressor**: An ensemble of decision trees, it improves prediction accuracy and controls over-fitting.
-  - **GradientBoostingRegressor**: Boosts weak learners sequentially to improve model performance.
-  - **XGBRegressor**: An efficient implementation of gradient boosting, known for its speed and performance.
-
-- **Other Models**:
-  - **KNeighborsRegressor**: A non-parametric method that predicts values based on the similarity (or ‘nearness’) to known cases.
-  - **SVR (Support Vector Regression)**: Adapts the margins of decision boundary to get more robust predictions.
-  - **MLPRegressor (Multi-layer Perceptron Regressor)**: A neural network model capable of capturing complex relationships in data.
-  - **StackingRegressor**: An ensemble learning technique that combines multiple regression models via a meta-regressor.
-
-Each model was chosen for its unique strengths and ability to provide different perspectives on the dataset. This diverse set allows for a comprehensive exploration of the data, ensuring robust and reliable predictions.
-
-## Model Evaluation and Validation
-
-Model evaluation and validation were integral to ensuring the accuracy and generalizability of the predictions. The following strategies were employed:
-
-- **K-Fold Cross-Validation**: This method splits the dataset into 'k' consecutive folds while ensuring every observation gets to be in a test set exactly once. It provides a robust way to assess model performance. In this project, a 5-fold cross-validation was used, balancing computational efficiency with robustness.
-
-- **RMSE (Root Mean Squared Error)**: Used as a primary metric to evaluate model performance. It measures the average magnitude of the errors between predicted and actual values, giving more weight to large errors.
-
-- **R² Score**: Employed as a supplementary metric, it represents the proportion of variance in the dependent variable that's predictable from the independent variables. It gives an idea of the goodness of fit of a model.
-
-- **MAE (Mean Absolute Error)** and **Explained Variance Score**: Additional metrics used for a more comprehensive evaluation of model performance.
-
-## Hyperparameter Tuning and Feature Engineering
-
-Hyperparameter tuning and feature engineering were conducted to optimize each model's performance and enhance the predictive power of the features:
-
-- **Feature Engineering**:
-  - **Polynomial Features**: Generated polynomial and interaction features to capture more complex relationships between variables.
-
-- **Hyperparameter Tuning**:
-  - **RandomizedSearchCV**: This method was used for its efficiency in searching through a large hyperparameter space. It randomly selects a subset of the parameter combinations, allowing for a broad yet computationally feasible search.
-  - **Parameter Grids**: Specific for each model, they included parameters like `n_estimators`, `max_depth`, `learning_rate` for tree-based models, `C` and `kernel` for SVR, and `hidden_layer_sizes` and `activation` for MLPRegressor.
-  - **Impact on Performance**: Hyperparameter tuning allowed for the refinement of each model, often resulting in improved RMSE scores.
-
-- **Ensemble Techniques**:
-  - **StackingRegressor**: A model that stacks the output of individual models and uses a Ridge regression as a final estimator to improve predictions.
-
-- **Optimizing KNeighborsRegressor**:
-  - **GridSearchCV**: Used to determine the best 'k' value for KNeighborsRegressor, ensuring optimal performance.
-
-This meticulous approach to modeling, evaluation, hyperparameter tuning, and feature engineering ensured the robustness and reliability of the predictive models, thus enabling accurate real estate price predictions.
-
-## Analysis and Interpretation of Results
-
-## Interactive Real Estate Sales Map of 2023
-
-To offer a visual representation of my findings, I have developed an interactive HTML map displaying the real estate sales count for 2023. This map enables users to identify regional market trends at a glance, providing an intuitive understanding of the distribution and volume of property sales across the United States.
+### **Interactive Sales Map (2023)**  
+To make the analysis more intuitive, I created an interactive HTML map that shows the number of property sales across the U.S. in 2023.
 
 ![Real Estate Sales Count Map 2023](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Interactive%20map.png)
 
-The map highlights the concentration of sales in various regions, shedding light on market hotspots and areas with lower transaction volumes. By overlaying this data with socioeconomic and demographic information, we can begin to interpret the underlying factors driving these trends.
+This map makes it easy to spot where the market is most active and where sales volume is lower. These trends can be even more meaningful when viewed alongside demographic or economic data.
 
-## Visual Data Analysis
-
-To provide a deeper understanding of the data, several visual analyses were conducted:
+### **Geographical Property Distribution**  
+This visualization shows how properties are spread across the country.
 
 ![Geographical Distribution of Properties](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Geographical%20Distribution%20of%20Properties.png)
 
-*Geographical Distribution of Properties*: This visualization gives an overview of property distribution across the country, offering insights into regional market densities.
+### **Regional Price Differences**  
+Understanding how prices vary by region is key to market analysis.
 
 ![Price Distribution in Each Region](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Price%20Distribution%20in%20Each%20Region.png)
 
-*Price Distribution in Each Region*: Understanding the variance in property prices within regions helps identify economic factors and market conditions influencing the housing landscape.
+### **Correlation Heatmaps by Region**  
+I also explored relationships between different variables using correlation heatmaps, broken out by U.S. region:
 
-### Detailed Correlation Analysis
+- **Midwest**  
+  ![Midwest Heatmap](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Midwest.png)  
+- **Northeast**  
+  ![Northeast Heatmap](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Northeast.png)  
+- **South**  
+  ![South Heatmap](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20South.png)  
+- **West**  
+  ![West Heatmap](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20West.png)
 
-Heatmaps were generated to explore the relationships between different variables within specific regions:
+## **5. Modeling Approach**  
+I tested a wide range of regression models to predict housing prices. The models were chosen for their different strengths and ability to generalize well across structured data.
 
-- ![Correlation heatmap Midwest](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Midwest.png)
-- ![Correlation heatmap Northeast](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20Northeast.png)
-- ![Correlation heatmap South](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20South.png)
-- ![Correlation heatmap West](https://github.com/pclaridy/us-housing-market-analytics-2023/blob/main/reports/figures/Correlation%20heatmap%20West.png)
+- **Linear Models**:  
+  LinearRegression, Lasso, Ridge, and ElasticNet
 
-These heatmaps reveal the intricate relationships between market estimates, rent estimates, prices, and other influential factors.
+- **Tree-Based Models**:  
+  DecisionTreeRegressor, RandomForestRegressor, GradientBoostingRegressor, and XGBRegressor
 
-### Performance Improvements from Hyperparameter Tuning
+- **Other Models**:  
+  KNeighborsRegressor, Support Vector Regression (SVR), and MLPRegressor (neural network-based)
 
-An evaluation of the model's performance post-hyperparameter tuning reveals significant insights:
+- **Ensemble Model**:  
+  A StackingRegressor that combined predictions from several models using Ridge regression as the final estimator
 
-**Before Tuning:**
-- Models like RandomForestRegressor, GradientBoostingRegressor, and XGBRegressor already demonstrated promising results with lower RMSE values, indicating a good fit.
-- Linear models and MLPRegressor had higher RMSE values, suggesting less accuracy in predictions.
+## **6. Evaluation Metrics**  
+To compare models effectively, I used a variety of evaluation metrics:
 
-**After Tuning:**
-- GradientBoostingRegressor showed the most significant improvement, achieving the lowest RMSE.
-- Linear models like Lasso and Ridge also saw improvements in RMSE, indicating effective optimization.
-- High RMSE values for SVR and MLPRegressor persisted, suggesting limitations in their predictive capabilities for this dataset.
+- **5-Fold Cross-Validation** for model robustness  
+- **Root Mean Squared Error (RMSE)** as the main performance measure  
+- **R² Score** to understand model fit  
+- **Mean Absolute Error (MAE)** and **Explained Variance Score** for additional perspective
 
-### Top-Performing Models
+## **7. Outcome**
 
-Based on RMSE, MAE, and Explained Variance Score, the top models post-tuning are:
-- **GradientBoostingRegressor:** Exhibited the lowest RMSE, indicating high accuracy.
-- **RandomForestRegressor and XGBRegressor:** Also performed well with low RMSE values, showing their effectiveness in capturing complex data relationships.
+### **Before and After Hyperparameter Tuning**  
+Before tuning, tree-based models like RandomForest, GradientBoosting, and XGB already performed well. Linear models and MLPRegressor had noticeably higher error rates.
 
-### Understanding Model Performance
+After tuning, GradientBoostingRegressor showed the largest improvement and ended up with the lowest RMSE overall. Lasso and Ridge models also improved, but SVR and MLPRegressor continued to struggle with this dataset.
 
-- **GradientBoostingRegressor** excels due to its sequential correction of errors from weak learners, making it effective for complex datasets.
-- **RandomForestRegressor**'s ensemble approach aggregates predictions from multiple decision trees, offering stable and accurate outputs.
-- **XGBRegressor** is efficient in handling gradient boosting, known for speed and performance.
-- Linear models' improvement post-tuning highlights the impact of optimizing parameters.
-- The consistent underperformance of models like SVR and MLPRegressor suggests a mismatch with the dataset's complexity.
+### **Top Performers**
+The best-performing models after tuning were:
+- GradientBoostingRegressor  
+- RandomForestRegressor  
+- XGBRegressor
 
-These findings underscore the value of ensemble methods like GradientBoostingRegressor and RandomForestRegressor in handling intricate patterns in real estate data. The improvements post-tuning emphasize the critical role of parameter optimization in model performance.
+These models effectively captured non-linear relationships and interactions in the data, which made them highly accurate for this kind of prediction task.
 
-## Conclusion and Future Work
+### **Feature Importance and Interpretability**  
+To understand what influenced the predictions, I analyzed feature importances from the best-performing models. The top features included:
 
-The analysis provides a comprehensive view of the effectiveness of various machine learning models in predicting real estate prices. The insights gained from this project can be pivotal for stakeholders in the real estate market. For future work, exploring additional features, different modeling techniques, or deploying the model in a real-world application could be considered to further enhance the project's impact.
+- Area  
+- Number of bedrooms and bathrooms  
+- Encoded city values  
+- MarketEstimate and RentEstimate
+
+To go deeper, I used SHAP values with GradientBoostingRegressor. This made it possible to see how each feature contributed to individual price predictions, which is helpful for building trust in the model's decisions.
+
+## **8. Tools Used**  
+- **Languages & Libraries**: Python, Pandas, NumPy  
+- **Modeling Tools**: Scikit-learn, XGBoost, SHAP, RandomizedSearchCV, GridSearchCV  
+- **Imputation Techniques**: KNN, RandomForestRegressor  
+- **Visualization Tools**: Matplotlib, Seaborn, Plotly  
+- **Environment**: Jupyter Notebook, GitHub  
+- **Data Export**: Pickle
+
+## **9. Business Impact / Use Case**  
+This project offers a practical toolset for evaluating residential real estate markets using machine learning. It provides investors with data-driven insights for pricing decisions, helps agents identify high-potential properties, and supports policymakers in understanding market behavior.
+
+With additional time-based data, this model could be extended to include seasonal patterns or economic indicators for forecasting future price trends. It could also be integrated into a larger real estate valuation platform or used internally by a real estate agency.
