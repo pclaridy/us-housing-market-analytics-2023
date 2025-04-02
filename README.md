@@ -126,8 +126,6 @@ To go deeper, I used SHAP values with GradientBoostingRegressor. This made it po
 - **Modeling Tools**: Scikit-learn, XGBoost, SHAP, RandomizedSearchCV, GridSearchCV  
 - **Imputation Techniques**: KNN, RandomForestRegressor  
 - **Visualization Tools**: Matplotlib, Seaborn, Plotly  
-- **Environment**: Jupyter Notebook, GitHub  
-- **Data Export**: Pickle
 
 ## **9. Business Impact / Use Case**  
 This project offers a practical toolset for evaluating residential real estate markets using machine learning. It provides investors with data-driven insights for pricing decisions, helps agents identify high-potential properties, and supports policymakers in understanding market behavior.
